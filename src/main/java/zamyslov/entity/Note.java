@@ -18,8 +18,8 @@ public class Note implements Serializable {
     @Column(name = "text")
     public String text;
 
-    @Column(name = "isDone", columnDefinition = "BIT")
-    public boolean isDone;
+    @Column(name = "isExecuted", columnDefinition = "BIT")
+    public boolean isExecuted;
 
     @Column(name = "createdDate")
     public Timestamp createdDate;
@@ -43,12 +43,12 @@ public class Note implements Serializable {
         this.text = text;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public boolean isExecuted() {
+        return isExecuted;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setExecuted(boolean done) {
+        isExecuted = done;
     }
 
     public Timestamp getCreatedDate() {
@@ -64,7 +64,7 @@ public class Note implements Serializable {
         return "Note{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", isDone=" + isDone +
+                ", isDone=" + isExecuted +
                 ", createdDate=" + createdDate +
                 '}';
     }

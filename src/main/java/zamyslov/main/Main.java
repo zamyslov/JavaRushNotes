@@ -1,4 +1,4 @@
-package main;
+package zamyslov.main;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

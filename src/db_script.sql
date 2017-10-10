@@ -8,12 +8,12 @@ CREATE TABLE `notes`
 (
 	`id` INT(8) NOT NULL AUTO_INCREMENT,
 	`text` VARCHAR(255) NOT NULL DEFAULT '0',
-	`isDone` BIT(1) NOT NULL DEFAULT b'0',
+	`isExecuted` BIT(1) NOT NULL DEFAULT b'0',
 	`createdDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 )
 COLLATE='utf8_general_ci';
-INSERT INTO `notes` (`id`,`text`,`isDone`,`createdDate`) VALUES (1,"Забрать обувь",0,"2017-10-08 16:50:27"),
+INSERT INTO `notes` (`id`,`text`,`isExecuted`,`createdDate`) VALUES (1,"Забрать обувь",0,"2017-10-08 16:50:27"),
 (2,"Приготовить еду",0,"2017-10-08 15:40:27"),
 (3,"Сходить в кино",0,"2017-10-07 12:00:27"),
 (4,"Купить еду",0,"2017-10-07 15:10:27"),
