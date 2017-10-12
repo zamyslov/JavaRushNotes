@@ -3,6 +3,7 @@ package zamyslov.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import zamyslov.dao.NoteDAOImpl;
+import zamyslov.service.NoteServiceImpl;
 
 /**
  * Created by Oleg on 10.10.2017.
@@ -11,8 +12,12 @@ import zamyslov.dao.NoteDAOImpl;
 @Controller
 public class NoteController {
 
+    private static final int ROWS_PER_PAGE = 10;
+
     @Autowired
-    private NoteDAOImpl noteDAO;
+    private NoteServiceImpl noteService;
+
+
 
 
 
