@@ -2,6 +2,7 @@ package zamyslov.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zamyslov.dao.NoteDAO;
 import zamyslov.entity.Note;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Oleg on 10.10.2017.
  */
 @Service
+@Transactional
 public class NoteServiceImpl implements NoteService {
 
     @Autowired
