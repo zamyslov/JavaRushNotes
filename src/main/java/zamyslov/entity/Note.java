@@ -18,7 +18,7 @@ public class Note implements Serializable {
     @Column(name = "text")
     public String text;
 
-    @Column(name = "isExecuted", columnDefinition = "BIT")
+    @Column(name = "isExecuted")
     public boolean isExecuted;
 
     @Column(name = "createdDate")

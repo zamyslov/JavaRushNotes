@@ -5,6 +5,8 @@
   Time: 20:03
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,22 +24,34 @@
         <tr>
             <th>ID</th>
             <th>Date</th>
+            <th>Time</th>
             <th>Text</th>
-            <th>isExecuted</th>
+            <th>Executed</th>
             <th colspan="4"></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${notes}" var="note">
-            <%--<c:url var="editUrl" value="/jvtestbd/main/users/edit?id=${notes.id}" />--%>
-            <%--<c:url var="deleteUrl" value="/jvtestbd/main/users/delete?id=${notes.id}" />--%>
+        <c:forEach items="${notesList}" var="note">
+            <c:url var="editUrl" value="/edit=${note.id}" />
+            <c:url var="deleteUrl" value="/delete=${note.id}" />
             <tr>
-                <td><c:out value="${note.id}" /></td>
-                <td><c:out value="${note.date}" /></td>
-                <td><c:out value="${note.text}" /></td>
-                <td><c:out value="${note.isExecuted}" /></td>
-                <%--<td><a href="${editUrl}">Edit</a></td>--%>
-                <%--<td><a href="${deleteUrl}">Delete</a></td>--%>
+                <th><c:out value="${note.id}" /></th>
+                <%--<th><fmt:formatDate value="${user.createdDate}" type="date"/></th>--%>
+                <%--<th><fmt:formatDate value="${user.createdDate}" type="time"/></th>--%>
+                <th><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}" /></th>
+                <th><fmt:formatDate pattern="HH:mm" value="${note.createdDate}" /></th>
+                <%--<th><c:out value="${note.createdDate}" /></th>--%>
+                <%--<th><c:out value="${note.createdDate}" /></th>--%>
+                <th><c:out value="${note.text}" /></th>
+                <%--<th><c:out value="${note.isExecuted}" /></th>--%>
+                <c:if test="${note.isExecuted}">
+                    YES
+                </c:if>
+                <c:if test="${!note.isExecuted}">
+                    NO
+                </c:if>
+                <td><a href="${editUrl}">Edit</a></td>
+                <td><a href="${deleteUrl}">Delete</a></td>
                 <%--<td><a href="${addUrl}">Add</a></td>--%>
             </tr>
         </c:forEach>

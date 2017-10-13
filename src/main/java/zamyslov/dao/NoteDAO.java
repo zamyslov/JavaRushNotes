@@ -11,4 +11,5 @@ public interface NoteDAO {
     void deleteNote(int id);
     List<Note> getAllNotes();
     List<Note> sortByExecuted();
+    Note get(Integer id);
 }

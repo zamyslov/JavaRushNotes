@@ -32,6 +32,11 @@ public class NoteDAOImpl implements NoteDAO {
     }
 
     @Override
+    public Note get(Integer id) {
+        return sessionFactory.getCurrentSession().get(Note.class,id);
+    }
+
+    @Override
     public List<Note> getAllNotes() {
         return sessionFactory.getCurrentSession().createQuery("FROM "+Note.class.getName()).list();
     }

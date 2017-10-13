@@ -42,4 +42,9 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> sortByExecuted() {
         return noteDAO.sortByExecuted();
     }
+
+    @Override
+    public Note get(Integer id ) {
+        return noteDAO.get(id);
+    }
 }
