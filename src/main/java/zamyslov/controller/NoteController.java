@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,13 +45,31 @@ public class NoteController {
         model.addAttribute("notesList", notesList);
 //        model.addAttribute("usersfull", usersfull);
         //return new ModelAndView("notes", "notes", notesList);
-        return "notes";
+        return "notespage";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String getEdit(@RequestParam(value="id", required=true) Integer id, Model model) {
-        model.addAttribute("userAttribute", noteService.get(id));
+    public String editNote(@RequestParam(value="id", required=true) Integer id, Model model) {
+        model.addAttribute("noteAttribute", noteService.get(id));
         return "editpage";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addNote(Model model) {
+        model.addAttribute("noteAttribute", new Note());
+        return "editpage";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveNote(@ModelAttribute("noteAttribute") Note note) {
+        noteService.addNote(note);
+        return "notespage";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteNote(@RequestParam(value="id", required=true) Integer id) {
+        noteService.deleteNote(id);
+        return "notespage";
     }
 
 

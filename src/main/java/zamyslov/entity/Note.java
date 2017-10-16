@@ -18,7 +18,7 @@ public class Note implements Serializable {
     @Column(name = "text")
     public String text;
 
-    @Column(name = "isExecuted")
+    @Column(name = "isExecuted",columnDefinition = "TINYINT(1)")
     public boolean isExecuted;
 
     @Column(name = "createdDate")
@@ -26,6 +26,7 @@ public class Note implements Serializable {
 
     public Note() {
     }
+
 
     public int getId() {
         return id;
@@ -43,11 +44,11 @@ public class Note implements Serializable {
         this.text = text;
     }
 
-    public boolean isExecuted() {
+    public boolean isisExecuted() {
         return isExecuted;
     }
 
-    public void setExecuted(boolean done) {
+    public void setisExecuted(boolean done) {
         isExecuted = done;
     }
 

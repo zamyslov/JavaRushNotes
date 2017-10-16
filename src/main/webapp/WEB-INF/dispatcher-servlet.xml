@@ -13,7 +13,6 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="zamyslov"/>
     <context:property-placeholder location="/WEB-INF/application.properties" />
-    <mvc:view-controller path="/" view-name="notes"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
