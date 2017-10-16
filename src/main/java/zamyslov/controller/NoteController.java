@@ -55,21 +55,21 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addNote(Model model) {
-        model.addAttribute("noteAttribute", new Note());
-        return "editpage";
+    public ModelAndView addNote() {
+//        model.addAttribute("noteAttribute", new Note());
+        return new ModelAndView("editpage","noteAttribute",new Note());
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveNote(@ModelAttribute("noteAttribute") Note note) {
+    public ModelAndView saveNote(@ModelAttribute("noteAttribute") Note note) {
         noteService.addNote(note);
-        return "notespage";
+        return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteNote(@RequestParam(value="id", required=true) Integer id) {
+    public ModelAndView deleteNote(@RequestParam(value="id", required=true) Integer id) {
         noteService.deleteNote(id);
-        return "notespage";
+        return new ModelAndView("redirect:/");
     }
 
 
