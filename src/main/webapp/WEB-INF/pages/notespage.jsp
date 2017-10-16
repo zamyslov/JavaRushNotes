@@ -14,11 +14,40 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>List of notes</title>
 </head>
-< hre>
 <br>
 <h1>Notes</h1>
 <%--<c:url var="addUrl" value="/jvtestbd/main/users/add" />--%>
 <%--<c:url var="filterUrl" value="/jvtestbd/main/users/filter" />--%>
+<div id="pagination">
+    <c:if test="${maxPages > 0}">
+        <c:url value="/" var="prev">
+            <c:param name="page" value="${page-1}"/>
+        </c:url>
+        <c:if test="${page > 0}">
+            <a href="<c:out value="${prev}" />" class="pn prev">Prev</a>
+        </c:if>
+        <c:forEach begin="1" end="${maxPages}" varStatus="i">
+            <c:choose>
+                <c:when test="${page == i.index}">
+                    <span>${i.index}</span>
+                </c:when>
+                <c:otherwise>
+                    <c:url value="/" var="url">
+                        <c:param name="page" value="${i.index}"/>
+                    </c:url>
+                    <a href='<c:out value="${url}" />'>${i.index}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </c:if>
+    <c:url value="/" var="next">
+        <c:param name="page" value="${page + 1}"/>
+    </c:url>
+    <c:if test="${page + 1 <= maxPages}">
+        <a href='<c:out value="${next}" />' class="pn next">Next</a>
+    </c:if>
+</div>
+
 <table style="border: 2px solid; width: 650px; text-align:center">
     <thead style="">
     <tr>

@@ -2,6 +2,7 @@ package zamyslov.controller;
 
 import com.sun.javafx.sg.prism.NGShape;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,48 +31,51 @@ public class NoteController {
     private NoteService noteService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getAllNotes(Model model) {
+    public ModelAndView getAllNotes(@RequestParam(required = false) Integer page) {
+        ModelAndView modelAndView = new ModelAndView("notespage");
         List<Note> notesList = noteService.getAllNotes();
-//        List<Note> users = noteService.getAllPage(0, 3);
-//        if (usersfull.size() < 3) {
-//            count = 1;
-//        }else if (usersfull.size() > 3 && usersfull.size() % 3 > 0){
-//            count = usersfull.size()/3+1;
-//        }else{
-//            count = usersfull.size()/3;
-//        }
+        PagedListHolder<Note> pagedListHolder = new PagedListHolder<>(notesList);
+        pagedListHolder.setPageSize(ROWS_PER_PAGE);
+        modelAndView.addObject("maxPages",pagedListHolder.getPageCount());
+        modelAndView.addObject("page", page);
+        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
+            pagedListHolder.setPage(0);
+            modelAndView.addObject("notesList", pagedListHolder.getPageList());
+        }
+        else if(page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page-1);
+            modelAndView.addObject("notesList", pagedListHolder.getPageList());
+        }
 
-//        model.addAttribute("count", count);
-        model.addAttribute("notesList", notesList);
-//        model.addAttribute("usersfull", usersfull);
-        //return new ModelAndView("notes", "notes", notesList);
-        return "notespage";
+        return modelAndView;
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editNote(@RequestParam(value="id", required=true) Integer id, Model model) {
-        model.addAttribute("noteAttribute", noteService.get(id));
-        return "editpage";
+    public ModelAndView editNote(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        return new ModelAndView("editpage", "noteAttribute", noteService.get(id));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addNote() {
 //        model.addAttribute("noteAttribute", new Note());
-        return new ModelAndView("editpage","noteAttribute",new Note());
+        return new ModelAndView("editpage", "noteAttribute", new Note());
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ModelAndView saveNote(@ModelAttribute("noteAttribute") Note note) {
-        noteService.addNote(note);
+        if (note.getId() == 0) {
+            noteService.addNote(note);
+        } else {
+            noteService.updateNote(note);
+        }
         return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ModelAndView deleteNote(@RequestParam(value="id", required=true) Integer id) {
+    public ModelAndView deleteNote(@RequestParam(value = "id", required = true) Integer id) {
         noteService.deleteNote(id);
         return new ModelAndView("redirect:/");
     }
-
 
 
 }
