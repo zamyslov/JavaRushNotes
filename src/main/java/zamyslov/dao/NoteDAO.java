@@ -10,6 +10,7 @@ public interface NoteDAO {
     Note updateNote(Note note);
     void deleteNote(int id);
     List<Note> getAllNotes();
-    List<Note> filterByExecuted(String filter);
+    List<Note> filterByExecuted(Integer id);
+    List<Note> sortNotes(Integer id);
     Note get(Integer id);
 }

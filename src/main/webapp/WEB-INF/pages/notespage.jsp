@@ -71,6 +71,18 @@
             border-right: none;
         }
 
+        panel {
+            background: #1dabb8;
+            color: #fff;
+            width: 150px;
+            margin: 15px 3px;
+            font-weight: bold;
+            padding: 12px 10px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+        }
+
     </style>
 </head>
 <br>
@@ -135,33 +147,34 @@
 </table>
 <br>
 </br>
-<a href="/add" style="background: #1dabb8;
-    color: #fff;
-    width: 150px;
-    margin: 15px 3px;
-    font-weight: bold;
-    padding: 12px 10px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-">Add note</a>
+<panel>
 
+    <a href="/add">Add note</a>
+    <a>Sort by:</a>
+    <a href="/sortnotes?id=0">ID</a>
+    <a href="/sortnotes?id=1">Date</a>
+    <a>Filter by:</a>
+    <a href="/filternotes?id=-1">All</a>
+    <a href="/filternotes?id=1">Executed</a>
+    <a href="/filternotes?id=0">Not executed</a>
+
+</panel>
 <%--<form:form modelAttribute="noteFilter" method="GET" action="/filternotes">--%>
 <%--<select name="filter">--%>
-    <%--<option value="All">All</option>--%>
-    <%--<option value="Executed">Executed</option>--%>
-    <%--<option value="NotExecuted">Not executed</option>--%>
+<%--<option value="All">All</option>--%>
+<%--<option value="Executed">Executed</option>--%>
+<%--<option value="NotExecuted">Not executed</option>--%>
 <%--</select>--%>
-    <%--<input type="submit" value="Filter"/>--%>
+<%--<input type="submit" value="Filter"/>--%>
 <%--</form:form>--%>
-<form:form action="/filternotes" method="GET" modelAttribute="noteFilter">
-    <form:select path="filter">
-        <form:option value="All" label="Select" />
-        <form:option value="Executed" label="Select" />
-        <form:option value="NotExecuted" label="Select" />
-    </form:select>
-    <a href="/filternotes">Add note</a>
-</form:form>
+<%--<form:form action="/filternotes" method="GET" modelAttribute="noteFilter">--%>
+<%--<form:select path="filter">--%>
+<%--<form:option value="All" label="Select" />--%>
+<%--<form:option value="Executed" label="Select" />--%>
+<%--<form:option value="NotExecuted" label="Select" />--%>
+<%--</form:select>--%>
+<%--<a href="/filternotes">Add note</a>--%>
+<%--</form:form>--%>
 <%--<c>--%>
 <%--You can filter users. <a href="${filterUrl}">Filter</a>.--%>
 <%--</c>--%>
