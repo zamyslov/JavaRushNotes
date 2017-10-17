@@ -14,22 +14,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>List of notes</title>
     <style type="text/css">
-        body {
-            background: url(/background.jpg) repeat;
-        }
-
         table {
             font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            margin: 0px 0px 0px 150px;
+            margin: 0px 0px 0px 50px;
             /*padding: 50px 50px;*/
-            font-size: 14px;
+            font-size: 12px;
             border-radius: 10px;
             border-spacing: 0;
             text-align: center;
         }
 
         th {
-            background: #000000;
+            background: #300205;
             color: white;
             text-shadow: 0 1px 1px #2D2020;
             padding: 10px 20px;
@@ -45,51 +41,65 @@
             text-align: left;
         }
 
-        th:first-child {
-            border-top-left-radius: 10px;
-        }
-
-        th:last-child {
-            border-top-right-radius: 10px;
-            border-right: none;
-        }
-
         td {
             padding: 10px 20px;
             background: #f0f8dc;
         }
 
-        tr:last-child td:first-child {
-            border-radius: 0 0 0 10px;
-        }
-
-        tr:last-child td:last-child {
-            border-radius: 0 0 10px 0;
-        }
-
-        tr td:last-child {
-            border-right: none;
-        }
-
         panel {
-            background: #1dabb8;
-            color: #fff;
+            background-color: #300205;
+            /*color: #fff;*/
             width: 150px;
             margin: 15px 3px;
             font-weight: bold;
             padding: 12px 10px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-            border-radius: 3px;
         }
 
     </style>
 </head>
 <br>
 <h1>Notes</h1>
+<div class="panel">
+    <a href="/add">Add note</a>
+    <a>Sort by:</a>
+    <a href="/sortnotes?id=0">ID</a>
+    <a href="/sortnotes?id=1">Date</a>
+    <a>Filter by:</a>
+    <a href="/filternotes?id=-1">All</a>
+    <a href="/filternotes?id=1">Executed</a>
+    <a href="/filternotes?id=0">Not executed</a>
+</div>
+
 <%--<c:url var="addUrl" value="/jvtestbd/main/users/add" />--%>
 <%--<c:url var="filterUrl" value="/jvtestbd/main/users/filter" />--%>
-<div id="pagination">
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Text</th>
+        <th>Executed</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tbody>
+    <c:forEach items="${notesList}" var="note">
+        <tr>
+            <td><c:out value="${note.id}"/></td>
+            <td><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}"/></td>
+                <%--&lt;%&ndash;<td><fmt:formatDate pattern="HH:mm" value="${note.createdDate}"/></td>&ndash;%&gt;--%>
+                <%--<td><c:out value="${note.createdDate}"/></td>--%>
+            <td><c:out value="${note.text}"/></td>
+            <td><c:out value="${note.isExecuted}"/></td>
+                <%--<td> <input type="checkbox" value="${note.isExecuted}" type="checkbox"></td>--%>
+            <td><a href="/edit?id=${note.id}">Edit</a></td>
+            <td><a href="/delete?id=${note.id}">Delete</a></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+    <tbody>
+</table>
+<div id="pagination" class="panel">
     <c:if test="${maxPages > 0}">
         <c:url value="/" var="prev">
             <c:param name="page" value="${page-1}"/>
@@ -118,69 +128,5 @@
         <a href='<c:out value="${next}" />' class="pn next">Next</a>
     </c:if>
 </div>
-
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Text</th>
-        <th>Executed</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    <tbody>
-    <c:forEach items="${notesList}" var="note">
-        <tr>
-            <td><c:out value="${note.id}"/></td>
-            <td><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}"/></td>
-            <td><fmt:formatDate pattern="HH:mm" value="${note.createdDate}"/></td>
-            <td><c:out value="${note.text}"/></td>
-            <td><c:out value="${note.isExecuted}"/></td>
-                <%--<td> <input type="checkbox" value="${note.isExecuted}" type="checkbox"></td>--%>
-            <td><a href="/edit?id=${note.id}">Edit</a></td>
-            <td><a href="/delete?id=${note.id}">Delete</a></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-    <tbody>
-</table>
-<br>
-</br>
-<panel>
-
-    <a href="/add">Add note</a>
-    <a>Sort by:</a>
-    <a href="/sortnotes?id=0">ID</a>
-    <a href="/sortnotes?id=1">Date</a>
-    <a>Filter by:</a>
-    <a href="/filternotes?id=-1">All</a>
-    <a href="/filternotes?id=1">Executed</a>
-    <a href="/filternotes?id=0">Not executed</a>
-
-</panel>
-<%--<form:form modelAttribute="noteFilter" method="GET" action="/filternotes">--%>
-<%--<select name="filter">--%>
-<%--<option value="All">All</option>--%>
-<%--<option value="Executed">Executed</option>--%>
-<%--<option value="NotExecuted">Not executed</option>--%>
-<%--</select>--%>
-<%--<input type="submit" value="Filter"/>--%>
-<%--</form:form>--%>
-<%--<form:form action="/filternotes" method="GET" modelAttribute="noteFilter">--%>
-<%--<form:select path="filter">--%>
-<%--<form:option value="All" label="Select" />--%>
-<%--<form:option value="Executed" label="Select" />--%>
-<%--<form:option value="NotExecuted" label="Select" />--%>
-<%--</form:select>--%>
-<%--<a href="/filternotes">Add note</a>--%>
-<%--</form:form>--%>
-<%--<c>--%>
-<%--You can filter users. <a href="${filterUrl}">Filter</a>.--%>
-<%--</c>--%>
-
-<br>
-</br>
-
 </body>
 </html>

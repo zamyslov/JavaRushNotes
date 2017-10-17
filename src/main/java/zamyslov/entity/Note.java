@@ -1,9 +1,13 @@
 package zamyslov.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "notes")
@@ -22,7 +26,7 @@ public class Note implements Serializable {
     public boolean isExecuted;
 
     @Column(name = "createdDate")
-    public Timestamp createdDate;
+    public Date createdDate;
 
     public Note() {
     }
@@ -52,11 +56,11 @@ public class Note implements Serializable {
         isExecuted = done;
     }
 
-    public Timestamp getCreatedDate() {
+    public Date  getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
