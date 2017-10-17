@@ -39,8 +39,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Note> sortByExecuted() {
-        return noteDAO.sortByExecuted();
+    public List<Note> filterByExecuted(String filter) {
+        return noteDAO.filterByExecuted(filter);
     }
 
     @Override

@@ -13,6 +13,65 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>List of notes</title>
+    <style type="text/css">
+        body {
+            background: url(/background.jpg) repeat;
+        }
+
+        table {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            margin: 0px 0px 0px 150px;
+            /*padding: 50px 50px;*/
+            font-size: 14px;
+            border-radius: 10px;
+            border-spacing: 0;
+            text-align: center;
+        }
+
+        th {
+            background: #000000;
+            color: white;
+            text-shadow: 0 1px 1px #2D2020;
+            padding: 10px 20px;
+        }
+
+        th, td {
+            border-style: solid;
+            border-width: 0 1px 1px 0;
+            border-color: white;
+        }
+
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+
+        th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 10px;
+            border-right: none;
+        }
+
+        td {
+            padding: 10px 20px;
+            background: #f0f8dc;
+        }
+
+        tr:last-child td:first-child {
+            border-radius: 0 0 0 10px;
+        }
+
+        tr:last-child td:last-child {
+            border-radius: 0 0 10px 0;
+        }
+
+        tr td:last-child {
+            border-right: none;
+        }
+
+    </style>
 </head>
 <br>
 <h1>Notes</h1>
@@ -23,7 +82,7 @@
         <c:url value="/" var="prev">
             <c:param name="page" value="${page-1}"/>
         </c:url>
-        <c:if test="${page > 0}">
+        <c:if test="${page > 1}">
             <a href="<c:out value="${prev}" />" class="pn prev">Prev</a>
         </c:if>
         <c:forEach begin="1" end="${maxPages}" varStatus="i">
@@ -48,25 +107,25 @@
     </c:if>
 </div>
 
-<table style="border: 2px solid; width: 650px; text-align:center">
-    <thead style="">
+<table>
     <tr>
         <th>ID</th>
         <th>Date</th>
         <th>Time</th>
         <th>Text</th>
         <th>Executed</th>
-        <th colspan="4"></th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
-    </thead>
     <tbody>
     <c:forEach items="${notesList}" var="note">
         <tr>
-            <th><c:out value="${note.id}"/></th>
-            <th><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}"/></th>
-            <th><fmt:formatDate pattern="HH:mm" value="${note.createdDate}"/></th>
-            <th><c:out value="${note.text}"/></th>
-            <th class="checkbox"><input value="${note.isExecuted}" type="checkbox" disabled="true"></th>
+            <td><c:out value="${note.id}"/></td>
+            <td><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}"/></td>
+            <td><fmt:formatDate pattern="HH:mm" value="${note.createdDate}"/></td>
+            <td><c:out value="${note.text}"/></td>
+            <td><c:out value="${note.isExecuted}"/></td>
+                <%--<td> <input type="checkbox" value="${note.isExecuted}" type="checkbox"></td>--%>
             <td><a href="/edit?id=${note.id}">Edit</a></td>
             <td><a href="/delete?id=${note.id}">Delete</a></td>
         </tr>
@@ -76,14 +135,33 @@
 </table>
 <br>
 </br>
-<a href="/add">Add</a>
-<%--<c:if test="${notesfull.size() > -1}">--%>
-<%--<c:forEach begin="1" end="${count}" var="val">--%>
-<%--<c:url var="pageURL" value="/jvtestbd//main/notesPage?numpage=${val}" />--%>
-<%--<a href="${pageURL}">${val}</a>-.--%>
-<%--</c:forEach>--%>
-<%--</c:if>--%>
+<a href="/add" style="background: #1dabb8;
+    color: #fff;
+    width: 150px;
+    margin: 15px 3px;
+    font-weight: bold;
+    padding: 12px 10px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+">Add note</a>
 
+<%--<form:form modelAttribute="noteFilter" method="GET" action="/filternotes">--%>
+<%--<select name="filter">--%>
+    <%--<option value="All">All</option>--%>
+    <%--<option value="Executed">Executed</option>--%>
+    <%--<option value="NotExecuted">Not executed</option>--%>
+<%--</select>--%>
+    <%--<input type="submit" value="Filter"/>--%>
+<%--</form:form>--%>
+<form:form action="/filternotes" method="GET" modelAttribute="noteFilter">
+    <form:select path="filter">
+        <form:option value="All" label="Select" />
+        <form:option value="Executed" label="Select" />
+        <form:option value="NotExecuted" label="Select" />
+    </form:select>
+    <a href="/filternotes">Add note</a>
+</form:form>
 <%--<c>--%>
 <%--You can filter users. <a href="${filterUrl}">Filter</a>.--%>
 <%--</c>--%>

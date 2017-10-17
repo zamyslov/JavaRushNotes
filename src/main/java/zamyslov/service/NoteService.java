@@ -14,7 +14,7 @@ public interface NoteService {
     Note updateNote(Note note);
     void deleteNote(int id);
     List<Note> getAllNotes();
-    List<Note> sortByExecuted();
+    List<Note> filterByExecuted(String filter);
     Note get(Integer id);
 
 }

@@ -18,8 +18,7 @@
 <form:form modelAttribute="noteAttribute" method="POST" action="/save">
     <table>
         <tr>
-            <td><form:label path="id">ID:</form:label></td>
-            <td><form:input path="id"/></td>
+            <td><form:input type="hidden" path="id"/></td>
         </tr>
         <tr>
             <td><form:label path="text">Text:</form:label></td>

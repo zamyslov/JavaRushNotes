@@ -42,7 +42,19 @@ public class NoteDAOImpl implements NoteDAO {
     }
 
     @Override
-    public List<Note> sortByExecuted() {
-        return null;
+    public List<Note> filterByExecuted(String filter) {
+        String queryText;
+        switch(filter) {
+            case "Executed": {
+                queryText = " WHERE isExecuted = 1";
+                break;
+            }
+            case "NotExecuted": {
+                queryText = " WHERE isExecuted = 0";
+                break;
+            }
+            default:queryText = "";
+        }
+        return sessionFactory.getCurrentSession().createQuery("FROM "+Note.class.getName()+queryText).list();
     }
 }

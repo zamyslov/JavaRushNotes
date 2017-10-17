@@ -1,20 +1,16 @@
 package zamyslov.controller;
 
-import com.sun.javafx.sg.prism.NGShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import zamyslov.dao.NoteDAOImpl;
 import zamyslov.entity.Note;
 import zamyslov.service.NoteService;
-import zamyslov.service.NoteServiceImpl;
 
 import java.util.List;
 
@@ -36,29 +32,43 @@ public class NoteController {
         List<Note> notesList = noteService.getAllNotes();
         PagedListHolder<Note> pagedListHolder = new PagedListHolder<>(notesList);
         pagedListHolder.setPageSize(ROWS_PER_PAGE);
-        modelAndView.addObject("maxPages",pagedListHolder.getPageCount());
-        modelAndView.addObject("page", page);
-        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
+        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
+        if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {
             pagedListHolder.setPage(0);
+            page = 1;
+            modelAndView.addObject("notesList", pagedListHolder.getPageList());
+        } else if (page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page - 1);
             modelAndView.addObject("notesList", pagedListHolder.getPageList());
         }
-        else if(page <= pagedListHolder.getPageCount()) {
-            pagedListHolder.setPage(page-1);
-            modelAndView.addObject("notesList", pagedListHolder.getPageList());
-        }
+        modelAndView.addObject("page", page);
 
         return modelAndView;
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView editNote(@RequestParam(value = "id", required = true) Integer id, Model model) {
+    public ModelAndView editNote(@RequestParam(value = "id", required = true) Integer id) {
         return new ModelAndView("editpage", "noteAttribute", noteService.get(id));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addNote() {
-//        model.addAttribute("noteAttribute", new Note());
         return new ModelAndView("editpage", "noteAttribute", new Note());
+    }
+
+    @RequestMapping(value = "/filternotes", method = RequestMethod.GET)
+    //public ModelAndView filterNote(@RequestParam(value = "filter") String filter) {
+    public ModelAndView filterNote(Model model) {
+        String filter = "";
+        List<Note> notesList = noteService.filterByExecuted(filter);
+        ModelAndView modelAndView = new ModelAndView("notespage");
+        PagedListHolder<Note> pagedListHolder = new PagedListHolder<>(notesList);
+        pagedListHolder.setPageSize(ROWS_PER_PAGE);
+        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
+        pagedListHolder.setPage(0);
+        modelAndView.addObject("notesList", pagedListHolder.getPageList());
+        modelAndView.addObject("page", 0);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
