@@ -5,12 +5,14 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import zamyslov.entity.Note;
 import zamyslov.service.NoteService;
 
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -31,8 +33,9 @@ public class NoteController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+        binder.registerCustomEditor(Date.class,
+                new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
+//                new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -67,7 +70,7 @@ public class NoteController {
 
     @RequestMapping(value = "/filternotes", method = RequestMethod.GET)
     public ModelAndView filterNote(@RequestParam(value = "id") Integer id) {
-    //public ModelAndView filterNote(Model model) {
+        //public ModelAndView filterNote(Model model) {
         List<Note> notesList = noteService.filterByExecuted(id);
         ModelAndView modelAndView = new ModelAndView("notespage");
         pagination(notesList, modelAndView);
@@ -92,11 +95,15 @@ public class NoteController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveNote(@ModelAttribute("noteAttribute") Note note) {
-        if (note.getId() == 0) {
-            noteService.addNote(note);
+    public ModelAndView saveNote(@Valid @ModelAttribute("noteAttribute") Note note, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ModelAndView("editpage", "noteAttribute", note);
         } else {
-            noteService.updateNote(note);
+            if (note.getId() == 0) {
+                noteService.addNote(note);
+            } else {
+                noteService.updateNote(note);
+            }
         }
         return new ModelAndView("redirect:/");
     }

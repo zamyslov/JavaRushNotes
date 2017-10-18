@@ -16,12 +16,12 @@
 
 <style type="text/css">
     body {
-        background: url(/WEB-INF/pages/background.jpg) repeat;
+        background-color: #D3D3D3;
     }
 
     table {
         font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-        margin: 0px 0px 0px 150px;
+        margin: 0px 0px 0px 10px;
         /*padding: 50px 50px;*/
         font-size: 14px;
         border-radius: 10px;
@@ -30,7 +30,7 @@
     }
 
     th {
-        background: #000000;
+        background: #BC8F8F;
         color: white;
         text-shadow: 0 1px 1px #2D2020;
         padding: 10px 20px;
@@ -38,7 +38,7 @@
 
     th, td {
         border-style: solid;
-        border-width: 0 1px 1px 0;
+        border-width: 0 0px 0px 0;
         border-color: white;
     }
 
@@ -46,34 +46,12 @@
         text-align: left;
     }
 
-    th:first-child {
-        border-top-left-radius: 10px;
-    }
-
-    th:last-child {
-        border-top-right-radius: 10px;
-        border-right: none;
-    }
-
     td {
         padding: 10px 20px;
-        background: #f0f8dc;
     }
 
-    tr:last-child td:first-child {
-        border-radius: 0 0 0 10px;
-    }
-
-    tr:last-child td:last-child {
-        border-radius: 0 0 10px 0;
-    }
-
-    tr td:last-child {
-        border-right: none;
-    }
-
-    submit {
-        background: #300205;
+    .submit {
+        background: #BC8F8F;
         color: #fff;
         width: 150px;
         margin: 15px 3px;
@@ -84,31 +62,40 @@
         border-radius: 3px;
     }
 
+    .error {
+        color: red;
+        font-weight: bold;
+    }
 </style>
-
-<h1>Create new User</h1>
 
 <form:form modelAttribute="noteAttribute" method="POST" action="/save">
     <table>
+
+        <tr>
+            <th colspan="3">Create new note</th>
+        </tr>
+
         <form:input type="hidden" path="id"/>
         <tr>
             <td><form:label path="text">Text:</form:label></td>
-            <td><form:input path="text"/></td>
-            <%--<td><form:textarea path="text" rows="5" cols="30"/></td>--%>
+            <td><form:textarea path="text"/></td>
+            <td><form:errors path="text" cssClass="error"/></td>
         </tr>
 
         <tr>
             <td><form:label path="createdDate">Date:</form:label></td>
             <td><form:input type="date" path="createdDate"/></td>
+            <td><form:errors path="createdDate" cssClass="error"/></td>
         </tr>
         <tr>
             <td><form:label path="isExecuted">Executed:</form:label></td>
             <td><form:input path="isExecuted"/></td>
+            <td><form:errors path="isExecuted" cssClass="error"/></td>
         </tr>
 
     </table>
 
-    <input type="submit" value="Save"/>
+    <input type="submit" class="submit" value="Save"/>
 </form:form>
 
 </body>

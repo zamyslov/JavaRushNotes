@@ -14,9 +14,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>List of notes</title>
     <style type="text/css">
+        body {
+            background-color: #D3D3D3;
+        }
+
+        h1 {
+            text-align: center;
+            color: #BC8F8F;
+        }
+
         table {
             font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            margin: 0px 0px 0px 50px;
+            margin: 0px 0px 0px 150px;
             /*padding: 50px 50px;*/
             font-size: 12px;
             border-radius: 10px;
@@ -25,7 +34,7 @@
         }
 
         th {
-            background: #300205;
+            background: #BC8F8F;
             color: white;
             text-shadow: 0 1px 1px #2D2020;
             padding: 10px 20px;
@@ -46,21 +55,39 @@
             background: #f0f8dc;
         }
 
-        panel {
-            background-color: #300205;
-            /*color: #fff;*/
-            width: 150px;
-            margin: 15px 3px;
+        .paneladd {
+            color: #1c25ff;
+            background-color: #BC8F8F;
+            width: 30%;
+            float: left;
+            text-align: left;
+            padding: 5px 0px;
+        }
+
+        .panelfilter {
+            color: #1c25ff;
+            background-color: #BC8F8F;
+            width: 70%;
+            float: right;
+            text-align: right;
+            padding: 5px 0px;
+        }
+
+        .panelpage {
+            background-color: #BC8F8F;
+            color: #1c25ff;
             font-weight: bold;
-            padding: 12px 10px;
+            text-align: center;
         }
 
     </style>
 </head>
 <br>
 <h1>Notes</h1>
-<div class="panel">
+<div class="paneladd">
     <a href="/add">Add note</a>
+</div>
+<div class="panelfilter">
     <a>Sort by:</a>
     <a href="/sortnotes?id=0">ID</a>
     <a href="/sortnotes?id=1">Date</a>
@@ -72,6 +99,7 @@
 
 <%--<c:url var="addUrl" value="/jvtestbd/main/users/add" />--%>
 <%--<c:url var="filterUrl" value="/jvtestbd/main/users/filter" />--%>
+<br><br>
 
 <table>
     <tr>
@@ -99,7 +127,9 @@
     </tbody>
     <tbody>
 </table>
-<div id="pagination" class="panel">
+<br>
+
+<div id="pagination" class="panelpage">
     <c:if test="${maxPages > 0}">
         <c:url value="/" var="prev">
             <c:param name="page" value="${page-1}"/>

@@ -4,9 +4,9 @@ package zamyslov.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,13 +19,18 @@ public class Note implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
 
+    @NotEmpty(message = "Please enter your text.")
     @Column(name = "text")
     public String text;
 
     @Column(name = "isExecuted",columnDefinition = "TINYINT(1)")
     public boolean isExecuted;
 
+    @NotNull(message = "Please enter your date.")
     @Column(name = "createdDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
     public Date createdDate;
 
     public Note() {
