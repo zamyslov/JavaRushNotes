@@ -8,9 +8,7 @@ import zamyslov.entity.Note;
 
 import java.util.List;
 
-/**
- * Created by Oleg on 10.10.2017.
- */
+
 @Service
 @Transactional
 public class NoteServiceImpl implements NoteService {

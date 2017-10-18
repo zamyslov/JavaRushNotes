@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +12,9 @@ import zamyslov.entity.Note;
 import zamyslov.service.NoteService;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-
-/**
- * Created by Oleg on 10.10.2017.
- */
 
 @Controller
 public class NoteController {
@@ -35,7 +28,6 @@ public class NoteController {
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
-//                new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

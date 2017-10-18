@@ -29,7 +29,6 @@ public class Note implements Serializable {
     @NotNull(message = "Please enter your date.")
     @Column(name = "createdDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)
     public Date createdDate;
 

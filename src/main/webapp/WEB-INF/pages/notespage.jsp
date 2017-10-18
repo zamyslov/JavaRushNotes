@@ -97,8 +97,6 @@
     <a href="/filternotes?id=0">Not executed</a>
 </div>
 
-<%--<c:url var="addUrl" value="/jvtestbd/main/users/add" />--%>
-<%--<c:url var="filterUrl" value="/jvtestbd/main/users/filter" />--%>
 <br><br>
 
 <table>
@@ -115,11 +113,8 @@
         <tr>
             <td><c:out value="${note.id}"/></td>
             <td><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}"/></td>
-                <%--&lt;%&ndash;<td><fmt:formatDate pattern="HH:mm" value="${note.createdDate}"/></td>&ndash;%&gt;--%>
-                <%--<td><c:out value="${note.createdDate}"/></td>--%>
             <td><c:out value="${note.text}"/></td>
             <td><c:out value="${note.isExecuted}"/></td>
-                <%--<td> <input type="checkbox" value="${note.isExecuted}" type="checkbox"></td>--%>
             <td><a href="/edit?id=${note.id}">Edit</a></td>
             <td><a href="/delete?id=${note.id}">Delete</a></td>
         </tr>
