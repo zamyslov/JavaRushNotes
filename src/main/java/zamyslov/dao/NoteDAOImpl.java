@@ -62,11 +62,11 @@ public class NoteDAOImpl implements NoteDAO {
         String queryText;
         switch(id) {
             case 1: {
-                queryText = " WHERE isExecuted = 1";
+                queryText = " WHERE isDone = 1";
                 break;
             }
             case 0: {
-                queryText = " WHERE isExecuted = 0";
+                queryText = " WHERE isDone = 0";
                 break;
             }
             default:queryText = "";

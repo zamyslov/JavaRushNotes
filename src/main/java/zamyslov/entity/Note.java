@@ -23,8 +23,8 @@ public class Note implements Serializable {
     @Column(name = "text")
     public String text;
 
-    @Column(name = "isExecuted",columnDefinition = "TINYINT(1)")
-    public boolean isExecuted;
+    @Column(name = "isDone",columnDefinition = "TINYINT(1)")
+    public boolean isDone;
 
     @NotNull(message = "Please enter your date.")
     @Column(name = "createdDate")
@@ -52,12 +52,12 @@ public class Note implements Serializable {
         this.text = text;
     }
 
-    public boolean isisExecuted() {
-        return isExecuted;
+    public boolean isisDone() {
+        return isDone;
     }
 
-    public void setisExecuted(boolean done) {
-        isExecuted = done;
+    public void setisDone(boolean done) {
+        isDone = done;
     }
 
     public Date  getCreatedDate() {
@@ -73,7 +73,7 @@ public class Note implements Serializable {
         return "Note{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", isDone=" + isExecuted +
+                ", isDone=" + isDone +
                 ", createdDate=" + createdDate +
                 '}';
     }

@@ -72,7 +72,7 @@
     <table>
 
         <tr>
-            <th colspan="3">Create new note</th>
+            <th colspan="2">Create new note</th>
         </tr>
 
         <form:input type="hidden" path="id"/>
@@ -87,11 +87,11 @@
             <td><form:input type="date" path="createdDate"/></td>
             <td><form:errors path="createdDate" cssClass="error"/></td>
         </tr>
-        <tr>
-            <td><form:label path="isExecuted">Executed:</form:label></td>
-            <td><form:input path="isExecuted"/></td>
-            <td><form:errors path="isExecuted" cssClass="error"/></td>
-        </tr>
+        <%--<tr>--%>
+            <%--<td><form:label path="isExecuted">Executed:</form:label></td>--%>
+            <%--<td><form:input path="isExecuted"/></td>--%>
+            <%--<td><form:errors path="isExecuted" cssClass="error"/></td>--%>
+        <%--</tr>--%>
 
     </table>
 

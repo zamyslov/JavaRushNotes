@@ -92,6 +92,7 @@ public class NoteController {
             return new ModelAndView("editpage", "noteAttribute", note);
         } else {
             if (note.getId() == 0) {
+                note.setisDone(false);
                 noteService.addNote(note);
             } else {
                 noteService.updateNote(note);
@@ -103,6 +104,14 @@ public class NoteController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteNote(@RequestParam(value = "id", required = true) Integer id) {
         noteService.deleteNote(id);
+        return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/executed", method = RequestMethod.GET)
+    public ModelAndView executedNote(@RequestParam(value = "id", required = true) Integer id) {
+        Note note = noteService.get(id);
+        note.setisDone(true);
+        noteService.updateNote(note);
         return new ModelAndView("redirect:/");
     }
 

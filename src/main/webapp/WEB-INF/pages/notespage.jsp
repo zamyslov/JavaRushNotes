@@ -25,12 +25,16 @@
 
         table {
             font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            margin: 0px 0px 0px 150px;
+            margin: auto;
             /*padding: 50px 50px;*/
             font-size: 12px;
             border-radius: 10px;
             border-spacing: 0;
             text-align: center;
+        }
+
+        .col2 {
+            width: 300px; /* Ширина ячейки */
         }
 
         th {
@@ -58,18 +62,19 @@
         .paneladd {
             color: #1c25ff;
             background-color: #BC8F8F;
-            width: 30%;
-            float: left;
-            text-align: left;
+            width: 10%;
+            text-align: center;
+            font-weight: bold;
+            /*float: left;*/
             padding: 5px 0px;
         }
 
         .panelfilter {
             color: #1c25ff;
             background-color: #BC8F8F;
-            width: 70%;
-            float: right;
-            text-align: right;
+            /*width: 70%;*/
+            /*float: right;*/
+            text-align: center;
             padding: 5px 0px;
         }
 
@@ -82,11 +87,11 @@
 
     </style>
 </head>
-<br>
 <h1>Notes</h1>
 <div class="paneladd">
     <a href="/add">Add note</a>
 </div>
+<br>
 <div class="panelfilter">
     <a>Sort by:</a>
     <a href="/sortnotes?id=0">ID</a>
@@ -104,19 +109,21 @@
         <th>ID</th>
         <th>Date</th>
         <th>Text</th>
-        <th>Executed</th>
+        <th>Done</th>
         <th>Edit</th>
         <th>Delete</th>
+        <th>Executed</th>
     </tr>
     <tbody>
     <c:forEach items="${notesList}" var="note">
         <tr>
             <td><c:out value="${note.id}"/></td>
             <td><fmt:formatDate pattern="dd MMM yyyy" value="${note.createdDate}"/></td>
-            <td><c:out value="${note.text}"/></td>
-            <td><c:out value="${note.isExecuted}"/></td>
+            <td class="col2"><c:out value="${note.text}"/></td>
+            <td><c:out value="${note.isDone ? 'Yes' : 'No'}"/></td>
             <td><a href="/edit?id=${note.id}">Edit</a></td>
             <td><a href="/delete?id=${note.id}">Delete</a></td>
+            <td><a href="/executed?id=${note.id}">Executed</a></td>
         </tr>
     </c:forEach>
     </tbody>
