@@ -76,22 +76,18 @@
         </tr>
 
         <form:input type="hidden" path="id"/>
-        <tr>
-            <td><form:label path="text">Text:</form:label></td>
-            <td><form:textarea path="text"/></td>
-            <td><form:errors path="text" cssClass="error"/></td>
-        </tr>
 
         <tr>
             <td><form:label path="createdDate">Date:</form:label></td>
             <td><form:input type="date" path="createdDate"/></td>
             <td><form:errors path="createdDate" cssClass="error"/></td>
         </tr>
-        <%--<tr>--%>
-            <%--<td><form:label path="isExecuted">Executed:</form:label></td>--%>
-            <%--<td><form:input path="isExecuted"/></td>--%>
-            <%--<td><form:errors path="isExecuted" cssClass="error"/></td>--%>
-        <%--</tr>--%>
+
+        <tr>
+            <td><form:label path="text">Text:</form:label></td>
+            <td><form:textarea path="text"/></td>
+            <td><form:errors path="text" cssClass="error"/></td>
+        </tr>
 
     </table>
 

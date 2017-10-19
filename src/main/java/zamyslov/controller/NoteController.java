@@ -62,11 +62,9 @@ public class NoteController {
 
     @RequestMapping(value = "/filternotes", method = RequestMethod.GET)
     public ModelAndView filterNote(@RequestParam(value = "id") Integer id) {
-        //public ModelAndView filterNote(Model model) {
         List<Note> notesList = noteService.filterByExecuted(id);
         ModelAndView modelAndView = new ModelAndView("notespage");
         modelAndView.addObject("notesList",notesList);
-        //pagination(notesList, modelAndView);
         return modelAndView;
     }
 
@@ -74,19 +72,10 @@ public class NoteController {
     public ModelAndView sortNote(@RequestParam(value = "id") Integer id) {
         List<Note> notesList = noteService.sortNotes(id);
         ModelAndView modelAndView = new ModelAndView("notespage");
-//        pagination(notesList, modelAndView);
         modelAndView.addObject("notesList",notesList);
         return modelAndView;
     }
 
-//    private void pagination(List<Note> notesList, ModelAndView modelAndView) {
-//        PagedListHolder<Note> pagedListHolder = new PagedListHolder<>(notesList);
-//        pagedListHolder.setPageSize(ROWS_PER_PAGE);
-//        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
-//        pagedListHolder.setPage(0);
-//        modelAndView.addObject("notesList", pagedListHolder.getPageList());
-//        modelAndView.addObject("page", 0);
-//    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ModelAndView saveNote(@Valid @ModelAttribute("noteAttribute") Note note, BindingResult result) {
