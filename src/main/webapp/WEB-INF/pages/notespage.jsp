@@ -97,7 +97,8 @@
     <a href="/sortnotes?id=0">ID</a>
     <a href="/sortnotes?id=1">Date</a>
     <a>Filter by:</a>
-    <a href="/filternotes?id=-1">All</a>
+    <a href="/">All</a>
+    <%--<a href="/filternotes?id=-1">All</a>--%>
     <a href="/filternotes?id=1">Executed</a>
     <a href="/filternotes?id=0">Not executed</a>
 </div>
